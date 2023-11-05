@@ -1,0 +1,30 @@
+class QuickSort {
+    /*Take pivot and divide array into left and right*/
+    sort = (array) => {
+	    const length = array.length;
+	    
+	    if(length<=1) {
+		    return array;
+	    }	
+
+	    const pivot = array[length-1];
+	    const left = [];
+	    const right = [];
+	    
+	    for(let i=0; i<length-1; i++) {
+		    if(array[i] <= pivot) {
+			    left.push(array[i]);
+		    } else {
+			    right.push(array[i]);
+		    }
+	    }
+
+	    return [...this.sort(left), pivot, ...this.sort(right)];
+    }
+}
+
+const qs = new QuickSort();
+
+let sorted = qs.sort([7,2,9,7,3,4,1,0,4]);
+
+console.log(sorted);

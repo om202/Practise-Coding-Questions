@@ -1,0 +1,67 @@
+// BAD METHOD
+const permutation = (str) => {
+    const len = str.length;
+    if(len < 2) return [str];
+    if(len === 2) return [str[0]+str[1], str[1]+str[0]];
+    const all_perms = [];
+    
+    for(let i=0; i<len; i++) {
+        const remaining = str.substring(0, i) + str.substring(i+1, len);
+        sub_perms = permutation(remaining);
+        sub_perms.forEach(sub => all_perms.push(str[i] + sub));
+    }
+    
+    return all_perms;
+}
+
+const isPermutationOf = (str1, str2) => {
+    const permutations = permutation(str1);
+    
+    for (let i = 0; i < permutations.length; i++) {
+        if (permutations[i] === str2) {
+            return true;
+        }
+    }
+    
+    return false;
+};
+
+// const val = isPermutationOf('ABCD', 'BCDA');
+
+// console.log(val);
+
+
+// EFFICIENT METHOD
+const areMapsEqual = (map1, map2) => {
+    if(map1.length !== map2.length) return false;
+    
+    for(const [key, value] of map1) {
+        if(!map2.has(key) || map2.get(key) !== value) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+const mapOf = (str) => {
+    const map = new Map();
+    
+    for(s of str) {
+        if(map.has(s)) {
+            map.set(s, map.get(s) + 1);
+        } else {
+            map.set(s, 1);
+        }
+    }
+    
+    return map;
+}
+
+const isPermutationOf2 = (str1, str2) => {
+    const map1 = mapOf(str1);
+    const map2 = mapOf(str2);
+    return areMapsEqual(map1, map2);
+};
+
+console.log(isPermutationOf2('ABCD', 'BCCDA'));

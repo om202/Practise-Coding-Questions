@@ -1,0 +1,22 @@
+const binarySearch = (array, find) => {
+    if(array.length < 1) {
+        return -1;
+    }
+    
+    const midIndex = Math.floor(array.length/2);
+    const mid = array[midIndex];
+    
+    if(find === mid) {
+        return midIndex;
+    } else if(find < mid) {
+        return binarySearch(array.slice(0, midIndex), find);
+    } else {
+        return binarySearch(array.slice(midIndex+1), find)
+    }
+}
+
+const sorted = [0,5,2,5,33,5,3,4].sort()
+console.log(sorted)
+const found = binarySearch(sorted, 3);
+
+console.log('found ?', found);

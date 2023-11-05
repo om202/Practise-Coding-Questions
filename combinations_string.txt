@@ -1,0 +1,26 @@
+function findCombinations(str, tempStr, start, combinations) {
+    if (tempStr !== "") {
+        combinations.push(tempStr);
+    }
+    
+    console.log('------ writing combination ---', combinations);
+
+    for (let i = start; i < str.length; i++) {
+        tempStr += str[i];
+        console.log('temp ', tempStr, i, combinations);
+        findCombinations(str, tempStr, i + 1, combinations);
+        tempStr = tempStr.slice(0, -1);
+        console.log('temp slice', tempStr, i, combinations);
+    }
+}
+
+function getAllCombinations(str) {
+    const combinations = [];
+    findCombinations(str, "", 0, combinations);
+    return combinations;
+}
+
+const str = "abcd";
+const result = getAllCombinations(str);
+console.log(result);
+

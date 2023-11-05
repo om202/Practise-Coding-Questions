@@ -1,0 +1,16 @@
+const hash = new Map();
+
+const isUnique = (string) => {
+    for(const s of string) {
+        if(hash.has(s)) {
+            return false;
+        };
+        
+       hash.set(s, 1);
+    };
+    
+    return true;
+};
+
+console.log(isUnique('hello'));
+

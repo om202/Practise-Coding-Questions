@@ -1,0 +1,30 @@
+const permutations = (str) => {
+    const len = str.length;
+    
+    if(len === 2) {
+        return [str[0] + str[1], str[1] + str[0]];
+    }
+    
+    if(len < 2) {
+        return [str];
+    }
+    
+    const all_perms = [];
+    
+    for(let i=0; i<len; i++) {
+        const remaining = str.substring(0,i) + str.substring(i+1, len);
+        const sub_perm = permutations(remaining);
+        
+        sub_perm.forEach(sub => {
+            all_perms.push(str[i] + sub);
+        });
+        
+        console.log('all_perms array ', all_perms);
+    };
+    
+    return all_perms;
+}
+
+console.log(permutations('abcd'));
+
+

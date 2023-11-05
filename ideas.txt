@@ -1,0 +1,159 @@
+Companies don't mind rejecting a candidate who might be a good one. But they do not want to hire someone who is definitely bad.
+
+
+In big O notation, the base of lograithm does not matter. For example, when using binary log or natural log (natural log uses, e = ~2.7, which means, 2.7**2.3 ~ 10). z
+
+But, sometimes, base is taken as 2, for example when considering a binary tree. So, lets say N = 100. For binary tree log(100) ~ 2 ** x = 100 ? i.e. 3.321.
+So, for binary tree logarithm time, 100 will just take 3.321
+
+
+
+Quick Sort algorithm
+--------------------
+
+Try1
+
+pivot = last
+if element is larger than pivot goes to right else goes to left.
+
+let a = [7,2,9,7,3,4,1,0,4]
+
+=> [0,1,4,3,2,4,7,9,7]
+=> [4,2,3,4,1,0,7,7,9]
+=> [7,7,0,1,4,3,2,4,9]
+=> did not succeed
+
+Try2
+
+Should recursively sort right and left, treating them as own array
+
+=> [7,2,9,7,3,4,1,0,4]
+=> [[2,3,4,1,0],4,[7,9,7]]
+=< [[[],0,[2,3,4,1]],4,[[7],7,[9]]]
+=> [[[],0,[[],1,[2,3,4]],4,[[7],7,[9]]]
+=> [[[],0,[[],1,[[2,3],4,[]]],4,[[7],7,[9]]]
+=> [[[],0,[[],1,[[[2],3,[]],4,[]]],4,[[7],7,[9]]]
+=> [0,1,2,3,4,4,7,7,9]
+
+divide and conquer
+
+
+
+Quick Sort Code
+---------------
+
+/*Take pivot and divide array into left and right*/
+const QuickSort = (array) => {
+	const length = array.length;
+	
+	if(length<=1) {
+		return array;
+	}	
+
+	const pivot = array[length-1];
+	const left = [];
+	const right = [];
+	
+	for(let i=0; i<length-1; i++) {
+		if(array[i] <= pivot) {
+			left.push(array[i]);
+		} else {
+			right.push(array[i]);
+		}
+	}
+
+	return [...QuickSort(left), pivot, ...QuickSort(right)];
+}
+
+
+
+Amortized time
+--------------
+
+Used to describe time complexity of an algorithm that has bad time complexity only once in a while besides the time complexity it has most of the time.
+
+The bad time complexity happens once in a while. But once it happens, it won’t happen again for so long that the cost is “amortized.”
+
+
+
+Binary Search
+--------------
+
+/* array is sorted */
+const binarySearch = (array, find) => {
+    if(array.length < 1) {
+        return -1;
+    }
+    
+    const midIndex = Math.floor(array.length/2);
+    const mid = array[midIndex];
+    
+    if(find === mid) {
+        return midIndex;
+    } else if(find < mid) {
+        return binarySearch(array.slice(0, midIndex), find);
+    } else {
+        return binarySearch(array.slice(midIndex+1), find)
+    }
+}
+
+At every step, the number of elements is halved.
+
+So, time complexity is O(logN)
+
+
+
+Recursive
+---------
+
+const f = (N) => {
+    if(n<1) return 1;
+    
+    return f(n-1) + f(n-1);
+}
+
+At every level, the number of leaves double.
+
+i.e. 1, 2, 4, 8, 16 => 2^0, 2^1, 2^2, 2^3... 2^N => 2^N time complexity
+
+
+
+Find all permutations of a string
+---------------------------------
+
+const permutations = (str) => {
+    const len = str.length;
+    
+    if(len === 2) {
+        return [str[0] + str[1], str[1] + str[0]];
+    }
+    
+    if(len < 2) {
+        return [str];
+    }
+    
+    const all_perms = [];
+    
+    for(let i=0; i<len; i++) {
+        const remaining = str.substring(0,i) + str.substring(i+1, len);
+        const sub_perm = permutations(remaining);
+        
+        sub_perm.forEach(sub => {
+            all_perms.push(str[i] + sub);
+        });
+        
+        console.log('all_perms array ', all_perms);
+    };
+    
+    return all_perms;
+}
+
+console.log(permutations('abcd'));
+
+Time Complexity: O(n!) (can not be optmized further)
+
+
+
+
+
+
