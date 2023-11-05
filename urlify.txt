@@ -1,0 +1,38 @@
+const strToArray = (str, sep) => {
+    const array = [];
+    let lastSep = 0;
+    
+    if(str.length === 0) {
+        return array;
+    }
+    
+    for(let i=0; i<str.length; i++) {
+        if(str[i] === sep) {
+            array.push(str.substring(lastSep, i));
+            lastSep = i+1;
+        }
+    }
+    
+    if(lastSep !== str.length) {
+        array.push(str.substring(lastSep, str.length));
+    }
+    
+    return array;
+}
+
+const joinArrayStr = (array, join) => {
+    let joined = "";
+    for(let i=0; i<array.length-1; i++) {
+        joined += array[i] + join;
+    }
+    joined += array[array.length-1];
+    return joined;
+}
+
+const uRLify = (str, replace) => {
+    const arrayOfStr = strToArray(str, ' ');
+    const joined = joinArrayStr(arrayOfStr, replace);
+    return joined;
+}
+
+console.log(uRLify('Mr John Smith', '%20'));
