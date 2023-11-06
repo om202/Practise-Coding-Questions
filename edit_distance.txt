@@ -1,0 +1,33 @@
+// Simple Parse Method
+
+const editsAway = (orig, mod) => {
+    const ol = orig.length;
+    const ml = mod.length;
+    let i = 0, j = 0;
+    let editCounts = 0;
+    
+    if(Math.abs(ol-ml) > 1) return false;
+    
+    while(i < ol && j < ml) {
+        if(orig[i] !== mod[j]) {
+            if(editCounts === 1) return false;
+            editCounts += 1;
+            
+            if(ol > ml) {
+                i++;
+            } else if ( ol < ml) {
+                j++;
+            } else {
+                i++;
+                j++;
+            }
+        } else {
+            i++;
+            j++;
+        }
+    }
+    
+    return true;
+}
+
+console.log(editsAway('pale', 'bake'));

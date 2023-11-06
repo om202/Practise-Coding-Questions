@@ -1,0 +1,30 @@
+const compress = (string) => {
+    let cstring = "";
+    let uniqueCount = 0;
+    let uniqueChar = string[0];
+    
+    let i = 0;
+    while (i < string.length) {
+        if(string[i] !== uniqueChar) {
+            cstring +=  uniqueChar + uniqueCount;
+            uniqueCount = 1;
+            uniqueChar = string[i];
+        } else {
+           uniqueCount++;
+        }
+        
+        i++;
+    }
+    
+    // last one
+    cstring += uniqueChar + uniqueCount;
+    
+    if (cstring.length < string.length) {
+        return cstring;
+    } else {
+        return string;
+    }
+}
+
+
+console.log(compress('aabcccccaaa'));
