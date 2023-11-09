@@ -1,0 +1,8 @@
+const stringRotation = (s1, s2) => {
+    const s1double = s1 + s1;
+    if (s1double.indexOf(s2) !== -1) return true;
+    return false;
+}
+
+
+console.log(stringRotation('waterbottle', 'erbottleewat'));
