@@ -1,0 +1,65 @@
+class Node {
+    constructor(value) {
+        this.value = value || null;
+        this.next = null;
+    }
+}
+
+
+class LinkedList {
+    constructor() {
+        this.head = new Node();
+    }
+    
+    addNode(value) {
+        if(this.head.value === null) {
+            this.head.value = value;
+        } else {
+            const node = new Node(value);
+            let pointer = this.head;
+            
+            while (pointer.next) {
+                pointer = pointer.next;
+            }
+            
+            pointer.next = node;
+        }
+    }
+    
+    printNodes() {
+        let pointer = this.head;
+        
+        while(pointer) {
+            console.log(pointer.value);
+            pointer = pointer.next;
+        }
+    }
+    
+    reverse() {
+        let prev = null;
+        let future;
+        
+        while(this.head) {
+          future = this.head.next;
+          this.head.next = prev;
+          prev = this.head;
+          this.head = future;
+        }
+        
+        this.head = prev;
+      }
+}
+
+
+const ll = new LinkedList();
+
+ll.addNode(0);
+ll.addNode(1);
+ll.addNode(2);
+ll.addNode(4);
+ll.addNode(5);
+
+ll.reverse();
+
+ll.printNodes();
+

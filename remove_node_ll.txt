@@ -1,0 +1,90 @@
+class Node {
+    constructor(value) {
+        this.value = value || null;
+        this.next = null;
+    }
+}
+
+
+class LinkedList {
+    constructor() {
+        this.head = new Node();
+    }
+    
+    addNode(value) {
+        if(this.head.value === null) {
+            this.head.value = value;
+        } else {
+            const node = new Node(value);
+            let pointer = this.head;
+            
+            while (pointer.next) {
+                pointer = pointer.next;
+            }
+            
+            pointer.next = node;
+        }
+    }
+    
+    getLength() {
+        let pointer = this.head;
+        let length = 0;
+        
+        while(pointer) {
+            length += 1;
+            pointer = pointer.next;
+        }
+        
+        return length;
+    };
+    
+    deleteNode(pos) {
+        const length = this.getLength();
+        
+        if(pos > length || pos < 0 || !pos) {
+            return -1;
+        } else if (pos === 0) {
+           this.head = this.head.next;
+        } else {
+            let counter = 0;
+            let pointer = this.head;
+            
+            while (pointer && counter < pos-1) {
+                pointer = pointer.next;
+                counter++;
+            }
+            
+            pointer.next = pointer.next.next;
+        }
+    }
+    
+    deleteMidNode() {
+        const length = this.getLength();
+        const mid = Math.floor(length/2);
+        this.deleteNode(mid);
+    }
+    
+    printNodes() {
+        let pointer = this.head;
+        
+        while(pointer) {
+            console.log(pointer.value);
+            pointer = pointer.next;
+        }
+    }
+}
+
+
+const ll = new LinkedList();
+
+ll.addNode(0);
+ll.addNode(1);
+ll.addNode(2);
+ll.addNode(4);
+ll.addNode(5);
+
+ll.printNodes();
+
+ll.deleteMidNode();
+
+ll.printNodes();
