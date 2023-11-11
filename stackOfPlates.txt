@@ -1,0 +1,57 @@
+class StackOfPlates {
+    constructor(thres) {
+        this.thres = thres || 10;
+        this.stackHolder = [];
+        this.current = [];
+    }
+    
+    push(val) {
+        if(this.current.length < this.thres) {
+            this.current.push(val);
+            if(this.stackHolder.length > 0) {
+                this.stackHolder[this.stackHolder.length-1] = this.current;
+            } else {
+                this.stackHolder[0] = this.current;
+            }
+        } else {
+            this.current = [];
+            this.current.push(val);
+            this.stackHolder.push(this.current);
+        }
+    }
+    
+    pop() {
+        if(this.stackHolder.length === 0) {
+            return null;
+        } else {
+            let top = this.stackHolder[this.stackHolder.length-1];
+            if(top.length > 0) {
+                 return top.pop();
+            } else {
+                this.stackHolder.pop();
+                let top = this.stackHolder[this.stackHolder.length-1];
+                return top.pop();
+            }
+        }
+    }
+    
+    popAt(i) {
+        if(this.stackHolder[i] && this.stackHolder[i].length > 0) {
+            return this.stackHolder[i].pop();
+        } else {
+            return null;
+        }
+    }
+    
+    getStackHolder() {
+        return this.stackHolder;
+    }
+}
+
+let sp = new StackOfPlates(3);
+
+sp.push(0);
+sp.push(1);
+sp.push(2);
+sp.push(3);
+console.log(sp.popAt(3));

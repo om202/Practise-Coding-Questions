@@ -1,0 +1,41 @@
+class Stack {
+    constructor(size) {
+        this.top = -1;
+        this.store = [];
+        this.size = size || 10;
+    }
+    
+    push(val) {
+        if(this.top === this.size-1) {
+            return -1;
+        }
+        
+        this.store.push(val);
+        this.top += 1;
+        return 1;
+    }
+    
+    pop() {
+        if(this.top === -1) {
+            return null;
+        }
+        
+        return this.store[this.top--];
+    }
+    
+    peek() {
+        if(this.top === -1) {
+            return null;
+        }
+        
+        return this.store[this.top];
+    }
+}
+
+const stack = new Stack();
+
+stack.push(0);
+stack.push(1);
+
+console.log(stack.peek());
+console.log(stack.pop());

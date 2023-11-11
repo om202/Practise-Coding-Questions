@@ -1,0 +1,57 @@
+class StackN {
+    constructor (N, M) {
+        if (N > 0 && M > 0) {
+            const sections = Math.floor(M/N);
+            this.tops = [];
+            this.store = new Array(M);
+            
+            if(sections < 1) {
+                return;
+            }
+            
+            this.startEnd = [];
+            let i = 0;
+            
+            while (i < N * sections) {
+                let start = i;
+                i += sections;
+                this.startEnd.push([start, i]);
+                this.tops.push(-1);
+            }
+            
+            for(let i=0; i<M; i++) {
+                this.store[i] = null;
+            }
+            
+            this.startEnd[this.startEnd.length - 1][1] += (M - N*sections);
+        }
+    }
+    
+    push(val, si) {
+        const start = this.startEnd[si][0];
+        const end = this.startEnd[si][1];
+        
+        console.log(end,this.tops[si], val)
+    
+        if(this.tops[si] === -1) {
+            this.tops[si] = start;
+            this.store[this.tops[si]] = val;
+        } else if (this.tops[si] >= start && this.tops[si] < end) {
+            this.tops[si] += 1;
+            this.store[this.tops[si]] = val;
+        } else {
+            console.log(`stack ${si} is full!`);
+        }
+    }
+    
+    getStack() {
+        return this.store;
+    }
+}
+
+const stack = new StackN(3, 10);
+stack.push(0,0);
+stack.push(1,0);
+stack.push(2,0);
+stack.push(3,0);
+console.log(stack.getStack());
