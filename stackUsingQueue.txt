@@ -1,0 +1,36 @@
+class QueueViaStack {
+    constructor(N) {
+        this.max = N;
+        this.stack1 = [];
+        this.stack2 = [];
+    }
+    
+    enQueue(val) {
+        if(this.stack1.length >= this.max) {
+            console.log('stack is full');  
+        } else {
+            this.stack1.push(val);
+        }
+    }
+    
+    deQueue() {
+        while(this.stack1.length > 1) {
+            this.stack2.push(this.stack1.pop());
+        }
+        
+        let val = this.stack1.pop();
+        
+        while(this.stack2.length > 0) {
+            this.stack1.push(this.stack2.pop());
+        }
+        
+        return val;
+    }
+}
+
+let qs = new QueueViaStack(10);
+qs.enQueue(0);
+qs.enQueue(1);
+qs.enQueue(2);
+console.log(qs.deQueue());
+console.log(qs.deQueue());
