@@ -1,0 +1,32 @@
+const sortStack = (stack) => {
+    let stack1 = [...stack];
+    let stack2 = [];
+    
+    for(let i = 0; i < stack.length; i++) {
+        let swapped = false;
+        while (stack1.length > 0) {
+            const sp1 = stack1.pop();
+            if (stack2.length === 0) {
+                stack2.push(sp1);
+            } else {
+                if (i%2 === 0 && stack2[stack2.length-1] < sp1 
+                    || i%2 !== 0 && stack2[stack2.length] > sp1) {
+                    swapped = true;
+                    const sp2 = stack2.pop();
+                    stack2.push(sp1);
+                    stack2.push(sp2);
+                } else {
+                    stack2.push(sp1);
+                }
+            }
+        }
+        
+        stack1 = stack2;
+        if(!swapped && i%2 === 0) return stack1;
+        stack2 = [];
+    }
+    
+    return stack1;
+}
+
+console.log(sortStack([7, -1, 4, 1, 0, 5]));
