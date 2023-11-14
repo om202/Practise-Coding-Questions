@@ -1,0 +1,55 @@
+class HeapSort {
+    constructor () {
+        this.array = [];
+    }
+    
+   #swap = (i, j) => {
+        const temp = this.array[i];
+        this.array[i] = this.array[j];
+        this.array[j] = temp;
+    }
+    
+    #heapify = (N) => {
+        let i = Math.floor(N/2) - 1;
+        
+        while(i >= 0) {
+           let left = (i*2+1) < N ? i*2+1 : -1;
+           let right = (i*2+2) < N ? i*2+2 : -1;
+           let largest = i;
+           
+           if(this.array[left] > this.array[largest]) {
+                largest = left;
+           }
+           
+           if(this.array[right] > this.array[largest]) {
+                largest = right;
+           }
+           
+           this.#swap(largest, i);
+           
+           i--;
+        }
+        
+    }
+    
+    #maxHeap = () => {
+        let i = this.array.length;
+        
+        while(i >= 1) {
+            this.#heapify(i);
+            this.#swap(0, i-1);
+            console.log("array heap", this.array);
+            i--;
+        }
+    }
+    
+   sort = (array) => {
+        this.array = array;
+        this.#maxHeap();
+        return this.array;
+    }
+}
+
+const hs = new HeapSort();
+const sorted = hs.sort([17, 61, 29, 58, 48, 7, 3, 33, 80, 35]);
+console.log(sorted);

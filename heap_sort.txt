@@ -1,0 +1,45 @@
+class Node {
+    constructor(val) {
+        if(val === undefined) {
+            this.val = null;
+        } else {
+            this.val = val;
+        }
+        this.left = null;
+        this.right = null;
+    }
+}
+
+class HeapSort {
+    constructor(arr) {
+        this.array = arr;
+    }
+    
+    sort() {
+       
+    }
+    
+    heapify(index = 0) {
+        let _head = new Node(this.array[index]);
+        if(index < this.array.length) {
+            _head.left = this.heapify(2*index + 1);
+            _head.right = this.heapify(2*index + 2);
+        }
+        
+        return _head;
+    }
+    
+    printTree(_head) {
+        if(_head.val !== null) {
+            console.log(_head.val);
+            this.printTree(_head.left);
+            this.printTree(_head.right);
+        }
+    }   
+    
+}
+
+
+const hs = new HeapSort([0,1,2,3,4,5]);
+let node = hs.heapify();
+hs.printTree(node);
