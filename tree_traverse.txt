@@ -1,0 +1,66 @@
+class Node {
+    constructor(val) {
+        this.val = val;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+class Tree {
+    constructor(array) {
+        this.head = null;
+        if(Array.isArray(array)) {
+            this.head = this._createTreeFromArray(array);
+        } else {
+            console.info('Please provide a valid array');
+        }
+    }
+    
+    _createTreeFromArray(array, index = 0) {
+        let node = new Node(array[index]);
+        if (index < array.length) {
+            node.left = this._createTreeFromArray(array, 2*index + 1);
+            node.right = this._createTreeFromArray(array, 2*index + 2);
+        }
+        return node;
+    }
+    
+    _inOrder(node = this.head) {
+        if(node.val !== undefined) {
+            this._inOrder(node.left);
+            console.log(node.val);
+            this._inOrder(node.right);
+        }
+    }
+    
+    _preOrder(node = this.head) {
+        if(node.val !== undefined) {
+            console.log(node.val);
+            this._preOrder(node.left);
+            this._preOrder(node.right);
+        }
+    }
+    
+    _postOrder(node = this.head) {
+        if(node.val !== undefined) {
+            this._postOrder(node.left);
+            console.log(node.val);
+            this._postOrder(node.right);
+        }
+    }
+    
+    traverse(way)  {
+        if(way === 'in') {
+            this._inOrder(this.head);
+        } else if (way === 'pre') {
+            this._preOrder(this.head);
+        } else if (way === 'post') {
+            this._postOrder(this.head);
+        } else {
+            console.error(`Do not how know to traverse - ${way} way`);
+        }
+    }
+}
+
+const tree = new Tree([0,1,2,3,4,5]);
+tree.traverse('pre');

@@ -1,0 +1,29 @@
+class Node {
+    constructor(val) {
+        this.val = val !== undefined ? val : null;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+const aToTree = (array, index = 0) => {
+    const node = new Node(array[index]);
+    if(index <= Math.floor(array.length/2)-1) {
+        node.left = aToTree(array, 2*index+1);
+        node.right = aToTree(array, 2*index+2);
+        index++;
+    }
+    return node;
+}
+
+const traverse = (node) => {
+    if(node) {
+        traverse(node.left);
+        console.log(node.val);
+        traverse(node.right);
+    }
+}
+
+const tree = aToTree([0,1,2,3,4,5]);
+
+traverse(tree);
