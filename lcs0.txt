@@ -1,0 +1,21 @@
+/*
+    Print all subsequences of a string
+*/
+
+const getSubsequences = (string) => {
+   const all = [];
+   
+   for(let i=0; i<string.length; i++) {
+    let sub  = ""
+    for(let j=i; j<string.length; j++) {
+        sub += string[j];
+        all.push(sub);
+    }
+   }
+   
+   return all;
+}
+
+const subseq = getSubsequences('abc');
+
+console.log(subseq);

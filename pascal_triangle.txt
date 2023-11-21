@@ -1,0 +1,20 @@
+const pascal = (N) => {
+    const triangle = [[1]];
+    
+    const rec = (i, j) => {
+        if (i === j+1) {
+            return;
+        }
+        triangle[j][i] = (triangle[j-1][i-1] || 0) + (triangle[j-1][i] || 0);
+        rec(i+1, j);
+    }
+    
+    for(let j=1; j<N; j++) {
+        triangle[j] = [];
+        rec(0, j);
+    }
+    
+    return triangle;
+}
+
+console.log(pascal(6));

@@ -1,0 +1,25 @@
+/*
+    Print all substrig of a string
+*/
+
+const getSubstr = (str) => {
+   const all = [];
+   
+   const rec = (index = 0, curr = "") => {
+    if (index === str.length) {
+        all.push(curr);
+        return;
+    }
+    
+    rec(index + 1, curr + str[index]);
+    rec(index + 1, curr);
+   }
+   
+   rec();
+   
+   return all;
+}
+
+const substr = getSubstr('abc');
+
+console.log(substr);
