@@ -1,0 +1,29 @@
+const A = [[1, 4, 7, 11, 15], [2, 5, 8, 12, 19], [3, 6, 9, 16, 22], [10, 13, 14, 17, 24], [18, 21, 23, 26, 30]];
+const target = 5;
+
+const search2d = (A, target) => {
+  const index = [A.length - 1, 0];
+
+  const search = (index, arr, val) => {
+    if (index[0] < 0 || index[1] > arr.length - 1) {
+      return false;
+    }
+
+    const vi = arr[index[0]][index[1]];
+
+    if (vi === val) return true;
+
+    if (val < vi) {
+      return search([index[0] - 1, index[1]], arr, val);
+    } else {
+      return search([index[0], index[1] + 1], arr, val);
+    }
+  };
+
+  return search(index, A, target);
+};
+
+const found = search2d(A, target);
+
+console.log(found);
+
